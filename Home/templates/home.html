@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management System - Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            height: 100%;
+        }
+        .container {
+            display: flex;
+            height: 100%;
+        }
+        .sidebar {
+            width: 200px;
+            background-color: #f0f0f0;
+            border-right: 1px solid #ccc;
+        }
+        .sidebar a {
+            display: block;
+            padding: 10px 15px;
+            text-decoration: none;
+            color: #000;
+            border-bottom: 1px solid #ccc;
+        }
+        .content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+        .welcome-section {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .stats-section {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            
+        }
+        .stat-card {
+            margin: auto;
+            border-radius: 5px;
+            padding: 20px;
+            width: 30%;
+            text-align: center;
+            background-color: #f9f9f9;
+        }
+        .recent-activities {
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            
+        }
+        .footer {
+            text-align: center;
+            padding: 20px 0;
+            background-color: #f0f0f0;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <a href="#"><strong>🏠 Home</strong></a>
+            <a href="{% url 'employee_list' %}"><strong>👤 Employees</strong></a>
+            <a href="{% url 'add_employee' %}"><strong>➕ Add Employee</strong></a>
+        </div>
+        <div class="content">
+            <div class="welcome-section">
+                <h1>Welcome to Employee Management System</h1>
+                <p>Manage your workforce efficiently with our comprehensive tools and features.</p>
+            </div>
+            <div class="stats-section">
+                <div class="stat-card">
+                    <h2>Total Employees</h2>
+                    <h3 style="font-weight: bold;">{{total_employee}}</>
+                </div>
+              
+            </div>
+            <div class="recent-activities">
+                <h2>Features of this System:</h2>
+                <ul>
+                    <li>Add Employee</li>
+                    <li>Delete Employee</li>
+                    <li>Update Info of an employee</li>
+                    <li>Search a specific employee by there name,email,mobile</li>
+                    <li>You can sort the list by name,mobile or email</li>
+                </ul>
+            </div>
+            <div class="footer">
+                Copyright 2024
+            </div>
+        </div>
+    </div>
+</body>
+</html>
