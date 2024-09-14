@@ -1,3 +1,54 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block title %}
+  Home Page
+{% endblock title %}
+
+{% block css_styles %}
+<link rel="stylesheet" href="{% static 'base.css' %}">
+<link rel="stylesheet" href="{% static 'css/add_employee.css' %}">
+{% endblock css_styles %}
+
+
+{% block content %}
+<div class="content">
+        <h1>Add New Employee</h1>
+    <form action="{% url 'add_employee' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in form %}
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {% if field.name == 'date_of_birth' %}
+                <input type="date" name="{{ field.name }}" id="{{ field.id_for_label }}" {% if field.value %}value="{{ field.value|date:'Y-m-d' }}"{% endif %} required>
+            {% else %}
+                {{ field }}
+            {% endif %}
+            {% if field.errors %}
+                <ul class="errorlist">
+                    {% for error in field.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endfor %}
+    
+        <input type="submit" value="Add Employee">
+    </form>
+</div>
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

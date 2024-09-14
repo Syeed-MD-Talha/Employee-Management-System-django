@@ -1,0 +1,51 @@
+/* Search Results Title Styles */
+.search-results-title {
+    font-size: 32px;
+    color: #2c3e50;
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 20px;
+    padding: 20px 10px;
+    background-color: #ecf0f1;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+
+.search-results-title i {
+    margin-right: 10px;
+    color: #3498db;
+}
+
+/* No Results Found Styles */
+.no-results {
+    text-align: center;
+    margin: 50px auto;
+    padding: 20px;
+    max-width: 400px;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.no-results i {
+    font-size: 48px;
+    color: #721c24;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.no-results .message {
+    font-size: 24px;
+    color: #721c24;
+    margin: 0;
+}
+
+.no-results .suggestion {
+    font-size: 16px;
+    color: #721c24;
+    margin-top: 10px;
+}

@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+  Employee List
+{% endblock title %}
+
+{% block css_styles %}
+  <link rel="stylesheet" href="{% static 'css/employee_list.css' %}">
+  <link rel="stylesheet" href="{% static 'css/search_bar.css' %}">
+{% endblock css_styles %}
+
+
+{% block content %}
+<div class="content">
+    {% include "includes/search_bar.html" %}
+
+    <table>
+        <thead>
+            <tr>
+                <th>Photo</th>
+                <th>Full Name 
+                    <a href="?{% for key, value in search_params.items %}{% if value %}{{ key }}={{ value }}&{% endif %}{% endfor %}sort_by=full_name&order={% if sort_by == 'full_name' and order == 'asc' %}desc{% else %}asc{% endif %}">
+                        ⇵
+                    </a>
+                </th>
+                <th>Email
+                    <a href="?{% for key, value in search_params.items %}{% if value %}{{ key }}={{ value }}&{% endif %}{% endfor %}sort_by=email&order={% if sort_by == 'email' and order == 'asc' %}desc{% else %}asc{% endif %}">
+                        ⇵
+                    </a>
+                </th>
+                <th>Mobile
+                    <a href="?{% for key, value in search_params.items %}{% if value %}{{ key }}={{ value }}&{% endif %}{% endfor %}sort_by=mobile&order={% if sort_by == 'mobile' and order == 'asc' %}desc{% else %}asc{% endif %}">
+                        ⇵
+                    </a>
+                </th>
+                <th>Date Of Birth 
+                    <a href="?{% for key, value in search_params.items %}{% if value %}{{ key }}={{ value }}&{% endif %}{% endfor %}sort_by=date_of_birth&order={% if sort_by == 'date_of_birth' and order == 'asc' %}desc{% else %}asc{% endif %}">
+                        ⇵
+                    </a>
+                </th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for employee in page_obj %}
+            <tr>
+                <td><div class="avatar"><img src="{{ employee.photo.url }}" alt="{{ employee.full_name }}"></div></td>
+                <td>{{employee.full_name}}</td>
+                <td>{{employee.email}}</td>
+                <td>{{employee.mobile}}</td>
+                <td>{{employee.date_of_birth|date:"d/m/Y"}}</td>
+                <td>
+                    <div class="delete_edit">
+                        <a href="{% url 'employee_edit' employee.id %}">
+                            <button class="edit-button"><i class="fa-solid fa-pen-to-square"></i></button>
+                        </a>
+                        <form action="{% url 'employee_delete' employee.id %}" method="post" class="delete-form">
+                            {% csrf_token %}
+                            <button class="delete-button" type="button" onclick="confirmDelete(this);"><i class="fa-solid fa-trash"></i></button>
+                        </form>
+                        <div id="deleteModal" class="modal">
+                            <div class="modal-content">
+                                <p>Are you sure you want to delete this?</p>
+                                <div class="yes_or_no">
+                                    <button id="confirmYes">Yes</button>
+                                    <button id="confirmNo">No</button>
+                                </div>
+
+                            </div>
+                        </div>                                
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% include "includes/pagination.html" %}
+    
+</div>
+{% endblock content %}
+
+
+{% block js_scripts %}
+<script src="{% static 'js/delete.js' %}"></script>
+{% endblock js_scripts %}

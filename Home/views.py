@@ -9,7 +9,7 @@ from django.core.paginator import Paginator
 # Create your views here.
 def home(request):
     total_employee=len(Employee.objects.all())
-    return render(request, 'home.html',{'total_employee':total_employee})
+    return render(request, 'pages/home.html',{'total_employee':total_employee})
 
 
 class EmployeeList(View):
@@ -29,7 +29,7 @@ class EmployeeList(View):
         page_obj = paginator.get_page(page_number)
         
 
-        return render(request, 'employee_list.html', {
+        return render(request, 'pages/employee_list.html', {
             'page_obj': page_obj,
             'sort_by': sort_by,
             'order': order,
@@ -45,7 +45,7 @@ def employee_create(request):
             return redirect('employee_list')
     else:
         form = EmployeeForm()
-    return render(request, 'add_employee.html', {'form': form})
+    return render(request, 'pages/add_employee.html', {'form': form})
 
 
 def employee_edit(request, id):
@@ -57,7 +57,7 @@ def employee_edit(request, id):
             return redirect('employee_list')
     else:
         form = EmployeeForm(instance=employee)
-    return render(request, 'edit_employee.html', {'form': form, 'employee': employee})
+    return render(request, 'pages/edit_employee.html', {'form': form, 'employee': employee})
 
 
 
@@ -67,27 +67,54 @@ def employee_delete(request, id):
         employee.delete()
         return redirect('employee_list')
     employees = Employee.objects.all()
-    return render(request, 'employee_list.html', {'employees': employees})
+    return render(request, 'pages/employee_list.html', {'employees': employees})
 
 
-def search_employee(request):
-    queryset=Employee.objects.all()  
+
+class search_employee(View):
+    def get(self, request):
+        employees = Employee.objects.all() 
+        # Get search parameters
+        name=request.GET.get('name','')  
+        date_of_birth=request.GET.get('date_of_birth','')
+        email = request.GET.get('email','')
+        mobile = request.GET.get('mobile','')
+
+        if name:
+            employees=employees.filter(full_name__icontains=name)
+        if date_of_birth:
+            employees=employees.filter(date_of_birth=date_of_birth)
+        if email:
+            employees=employees.filter(email__icontains=email)
+        if mobile:
+            employees=employees.filter(mobile=mobile)
+            
+            
+        
+        sort_by = request.GET.get('sort_by', 'full_name')
+        order = request.GET.get('order', 'asc')
+        if order == 'asc':
+            employees = employees.order_by(sort_by)
+        else:
+            employees = employees.order_by(f'-{sort_by}')
+            
     
-    # Get search parameters
-    name=request.GET.get('name','')  
-    date_of_birth=request.GET.get('date_of_birth','')
-    email = request.GET.get('email','')
-    mobile = request.GET.get('mobile','')
-    
-    if name:
-        queryset=queryset.filter(full_name__icontains=name)
-    if date_of_birth:
-        queryset=queryset.filter(date_of_birth=date_of_birth)
-    if email:
-        queryset=queryset.filter(email__icontains=email)
-    if mobile:
-        queryset=queryset.filter(mobile=mobile)
-    
-    print(queryset)
-    context={'employees':queryset}
-    return render(request, 'search_employee.html', context)
+        # for pagination
+        paginator = Paginator(employees, 6)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        
+                # Create a dictionary of all search parameters
+        search_params = {
+            'name': name,
+            'date_of_birth': date_of_birth,
+            'email': email,
+            'mobile': mobile,
+        }
+
+        return render(request, 'pages/employee_list.html', {
+            'page_obj': page_obj,
+            'sort_by': sort_by,
+            'order': order,
+            'search_params': search_params,  # Pass search parameters to the template
+        })

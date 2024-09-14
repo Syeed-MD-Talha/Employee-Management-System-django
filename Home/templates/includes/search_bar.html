@@ -1,0 +1,9 @@
+<form method="GET" action="{% url 'search_employee' %}">
+    <div class="search-bar">
+        <input type="text" name="name" placeholder="Name" value="{{ request.GET.name }}">
+        <input type="text" name="date_of_birth" placeholder="Date of Birth" onfocus="(this.type='date')" onblur="(this.type='text')" value="{{ request.GET.date_of_birth }}">
+        <input type="email" name="email" placeholder="Email" value="{{ request.GET.email }}">
+        <input type="tel" name="mobile" placeholder="Mobile" value="{{ request.GET.mobile }}">
+        <button type="submit"><i class="fas fa-search"></i></button>
+    </div>
+</form>

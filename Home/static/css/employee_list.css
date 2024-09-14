@@ -3,10 +3,17 @@ body, html {
     padding: 0;
     font-family: Arial, sans-serif;
     height: 100%;
+    /*changes*/
+    display: flex;
+    flex-direction: column;
 }
 .container {
     display: flex;
     height: 100%;
+    
+    /*changes*/
+    flex: 1 0 auto;
+    min-height: 0;
 }
 .sidebar {
     width: 200px;
@@ -24,8 +31,12 @@ body, html {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+
+    /*changes*/
+    flex: 1;
+    overflow-y: auto;
 }
-.search-bar {
+/* .search-bar {
     padding: 20px;
     background-color: #fff;
     border: 1px solid #ccc;
@@ -40,12 +51,10 @@ body, html {
 }
 .search-bar button {
     background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
+    border: 1px solid #cccccc00;
     cursor: pointer;
-}
+} */
+
 table {
     border-collapse: collapse;
     width: calc(100% - 40px);
@@ -79,8 +88,6 @@ th {
 }
 
 
-
-
 .delete_edit i {
     font-size: 24px; /* Adjust icon size */
     color: #333; /* Adjust icon color if needed */
@@ -97,10 +104,14 @@ th {
     display: flex;
     justify-content: space-around;
 }
-.pagination {
-    margin: 20px;
+.pagination{
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 30px;
     text-align: center;
+    
 }
+
 .pagination a {
     text-decoration: none;
     color: #000;
@@ -163,4 +174,13 @@ th {
 .yes_or_no{
     display: flex;
     padding-left: 10px;
+}
+
+
+footer {
+    background-color: #f0f0f0;
+    border-top: 1px solid rgba(133, 132, 132, 0.682);
+    text-align: center;
+    padding: 10px 0;
+    flex-shrink: 0;
 }

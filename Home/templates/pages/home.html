@@ -1,3 +1,55 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block title %}
+  Home Page
+{% endblock title %}
+
+{% block css_styles %}
+<link rel="stylesheet" href="{% static 'base.css' %}">
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock css_styles %}
+
+
+{% block content %}
+<div class="content">
+    <div class="welcome-section">
+        <h1>Welcome to Employee Management System</h1>
+        <p>Manage your workforce efficiently with our comprehensive tools and features.</p>
+    </div>
+    <div class="stats-section">
+        <div class="stat-card">
+            <h2>Total Employees</h2>
+            <h3 style="font-weight: bold;">{{total_employee}}</>
+        </div>
+      
+    </div>
+    <div class="recent-activities">
+        <h2>Features of this System:</h2>
+        <ul>
+            <li>Add Employee</li>
+            <li>Delete Employee</li>
+            <li>Update Info of an employee</li>
+            <li>Search a specific employee by there name,email,mobile</li>
+            <li>You can sort the list by name,mobile or email</li>
+        </ul>
+    </div>
+</div>
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,15 +63,19 @@
             padding: 0;
             font-family: Arial, sans-serif;
             height: 100%;
+            display: flex;
+            flex-direction: column;
         }
         .container {
             display: flex;
-            height: 100%;
+            flex: 1;
+            overflow: hidden;
         }
         .sidebar {
             width: 200px;
             background-color: #f0f0f0;
             border-right: 1px solid #ccc;
+            flex-shrink: 0;
         }
         .sidebar a {
             display: block;
@@ -33,6 +89,7 @@
             display: flex;
             flex-direction: column;
             padding: 20px;
+            overflow-y: auto;
         }
         .welcome-section {
             background-color: #f9f9f9;
@@ -43,30 +100,27 @@
         }
         .stats-section {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             margin-bottom: 20px;
-            
         }
         .stat-card {
-            margin: auto;
+            background-color: #f9f9f9;
             border-radius: 5px;
             padding: 20px;
             width: 30%;
             text-align: center;
-            background-color: #f9f9f9;
         }
         .recent-activities {
-            background-color: #fff;
+            background-color: #f9f9f9;
             border-radius: 5px;
             padding: 20px;
-            background-color: #f9f9f9;
-            
+            margin-bottom: 20px;
         }
-        .footer {
-            text-align: center;
-            padding: 20px 0;
+        footer {
             background-color: #f0f0f0;
-            margin-top: auto;
+            border-top: 1px solid rgba(133, 132, 132, 0.682);
+            text-align: center;
+            padding: 10px 0;
         }
     </style>
 </head>
@@ -99,10 +153,8 @@
                     <li>You can sort the list by name,mobile or email</li>
                 </ul>
             </div>
-            <div class="footer">
-                Copyright 2024
-            </div>
         </div>
     </div>
+    <footer>Copyright 2024</footer>
 </body>
 </html>
